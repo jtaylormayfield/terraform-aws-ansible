@@ -34,8 +34,8 @@ data "template_file" "ansible" {
   template = "${file("${path.module}/play.tpl")}"
 
   vars {
-    git_cmds  = "${formatlist("git clone %s %s", var.playbooks, random_id.repo_id.*.b64_url)}"
-    play_cmds = "${formatlist("ansible-playbook %s/site.yml --extra-vars \"instance_ids=${aws_instance.default.id}\" --user %s --key-file %s", random_id.repo_id.*.b64_url, var.playbook_user, var.private_key_path)}"
+    git_cmds  = "${join(" & ", formatlist("git clone %s %s", var.playbooks, random_id.repo_id.*.b64_url))}"
+    play_cmds = "${join(" && ",formatlist("ansible-playbook %s/site.yml --extra-vars \"instance_ids=${aws_instance.default.id}\" --user %s --key-file %s", random_id.repo_id.*.b64_url, var.playbook_user, var.private_key_path))}"
   }
 }
 
