@@ -11,4 +11,4 @@ ${git_cmds}
 wait
 
 # Run playbooks sequentially
-${ansible_cmds}
+${play_cmds}
