@@ -24,17 +24,14 @@ variable "outbound_rules" {
   type        = "list"
 }
 
-variable "playbooks" {
-  default = [
-    {
-      git_url    = ""
-      local_name = ""
-      extra_vars = ""
-      user       = ""
-    },
-  ]
+variable "playbook_user" {
+  default     = "centos"
+  description = "User account to use during configuration."
+}
 
-  description = "List of playbook descriptors containing a valid Git URL to a playbook, name of local copy, extra variables, user."
+variable "playbooks" {
+  default     = ["http://54.68.126.240/apache"] # Simple apache
+  description = "List of playbook Git URLs."
   type        = "list"
 }
 

@@ -1,3 +1,7 @@
+locals {
+  playbook_urls = "${var.playbooks}"
+}
+
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
   public_key = "${file(var.public_key_path)}"
@@ -21,12 +25,17 @@ resource "aws_instance" "default" {
   }
 }
 
+resource "random_id" "repo_id" {
+  count       = "${length(var.playbooks)}"
+  byte_length = 8
+}
+
 data "template_file" "ansible" {
   template = "${file("${path.module}/play.tpl")}"
 
   vars {
-    git_cmds  = "${formatlist("git clone %s %s", var.playbooks.*.git_url, var.playbooks.*.local_name)}"
-    play_cmds = "${formatlist("ansible-playbook %s/site.yml --extra-vars \"%s\" --user %s --key-file %s", var.playbooks.*.local_name, var.playbooks.*.extra_vars, var.playbooks.*.user, var.private_key_path)}"
+    git_cmds  = "${formatlist("git clone %s %s", var.playbooks, random_id.repo_id.*.b64_url)}"
+    play_cmds = "${formatlist("ansible-playbook %s/site.yml --extra-vars \"instance_ids=${aws_instance.default.id}\" --user %s --key-file %s", random_id.repo_id.*.b64_url, var.playbook_user, var.private_key_path)}"
   }
 }
 

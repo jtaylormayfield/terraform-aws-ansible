@@ -6,18 +6,13 @@ variable "instance_type" {
   description = "EC2 instance type."
 }
 
-variable "playbooks" {
-  description = "List of playbook descriptors containing a valid Git URL to a playbook, name of local copy, extra variables, user."
-  type        = "list"
+variable "playbook_user" {
+  description = "User account to use during configuration."
+}
 
-  default = [
-    {
-      git_url    = ""
-      local_name = ""
-      extra_vars = ""
-      user       = ""
-    },
-  ]
+variable "playbooks" {
+  description = "List of playbook Git URLs."
+  type        = "list"
 }
 
 variable "private_key_path" {
