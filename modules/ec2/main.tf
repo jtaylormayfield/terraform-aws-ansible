@@ -11,7 +11,7 @@ resource "aws_instance" "default" {
   ami                    = "${var.ami_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${aws_key_pair.deployer.id}"
-  vpc_security_group_ids = "${var.sg_ids}"
+  vpc_security_group_ids = ["${var.sg_ids}"]
   subnet_id              = "${var.subnet_id}"
 
   root_block_device {
