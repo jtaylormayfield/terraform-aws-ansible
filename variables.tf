@@ -1,5 +1,5 @@
 variable "ami_id" {
-  default     = "ami-e1496384"                                                # CentOS
+  default     = "ami-9c0638f9"                                                # CentOS 1805
   description = "Amazon Machine Image ID used to provision the EC2 instance."
 }
 
