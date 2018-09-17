@@ -79,7 +79,3 @@ variable "volume_type" {
   default     = "gp2"
   description = "Type of volume to create for the root block device. Valid options are 'standard' and 'gp2'."
 }
-
-variable "vpc_id" {
-  description = "AWS VPC ID."
-}

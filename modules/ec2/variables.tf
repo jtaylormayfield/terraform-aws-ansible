@@ -25,6 +25,7 @@ variable "public_key_path" {
 
 variable "sg_ids" {
   description = "Security group IDs."
+  type = "list"
 }
 
 variable "subnet_id" {

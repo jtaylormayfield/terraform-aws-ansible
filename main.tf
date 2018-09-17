@@ -8,6 +8,10 @@ locals {
   tag_prefix_name = "${var.project_name}"
 }
 
+data "aws_subnet" "default" {
+  id = "${var.subnet_id}"
+}
+
 module "ec2" {
   source = "./modules/ec2"
 
@@ -33,5 +37,5 @@ module "security" {
   outbound_rules = "${var.outbound_rules}"
   tag_env        = "${local.tag_prefix_env}"
   tag_name       = "${local.tag_prefix_name}"
-  vpc_id         = "${var.vpc_id}"
+  vpc_id         = "${data.aws_subnet.default.vpc_id}"
 }
