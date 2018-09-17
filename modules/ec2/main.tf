@@ -39,19 +39,14 @@ data "template_file" "ansible" {
   }
 }
 
-resource "local_file" "ansible" {
-  content  = "${data.template_file.ansible.rendered}"
-  filename = "play.sh"
-}
-
 resource "null_resource" "default" {
-  depends_on = ["local_file.ansible"]
+  depends_on = ["template_file.ansible"]
 
   triggers {
     instance_id = "${aws_instance.default.id}"
   }
 
   provisioner "local-exec" {
-    command = "play.sh"
+    command = "${data.template_file.ansible.rendered}"
   }
 }
