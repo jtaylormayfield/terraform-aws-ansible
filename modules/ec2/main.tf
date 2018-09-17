@@ -22,7 +22,7 @@ resource "aws_instance" "default" {
 }
 
 data "template_file" "ansible" {
-  template = "${file("${module.path}/play.tpl")}"
+  template = "${file("${path.module}/play.tpl")}"
 
   vars {
     git_cmds  = "${formatlist("git clone %s %s", var.playbooks.*.git_url, var.playbooks.*.local_name)}"
