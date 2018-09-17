@@ -1,9 +1,10 @@
 variable "ami_id" {
+  default     = "ami-e1496384"                                                # CentOS
   description = "Amazon Machine Image ID used to provision the EC2 instance."
 }
 
 variable "aws_region" {
-  default     = "us-east-2"
+  default     = "us-east-2"                              # Ohio
   description = "AWS region to use for API interaction."
 }
 
@@ -24,15 +25,15 @@ variable "outbound_rules" {
   type        = "list"
 }
 
-variable "playbook_user" {
-  default     = "centos"
-  description = "User account to use during configuration."
-}
-
 variable "playbooks" {
   default     = ["http://54.68.126.240/apache"] # Simple apache
   description = "List of playbook Git URLs."
   type        = "list"
+}
+
+variable "playbook_user" {
+  default     = "centos"
+  description = "User account to use during configuration."
 }
 
 variable "private_key_path" {
@@ -77,4 +78,8 @@ variable "volume_size" {
 variable "volume_type" {
   default     = "gp2"
   description = "Type of volume to create for the root block device. Valid options are 'standard' and 'gp2'."
+}
+
+variable "vpc_id" {
+  description = "AWS VPC ID."
 }

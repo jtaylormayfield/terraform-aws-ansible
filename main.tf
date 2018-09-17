@@ -14,6 +14,7 @@ module "ec2" {
   ami_id           = "${var.ami_id}"
   instance_type    = "${var.instance_type}"
   playbooks        = "${var.playbooks}"
+  playbook_user    = "${var.playbook_user}"
   private_key_path = "${var.private_key_path}"
   public_key_path  = "${var.public_key_path}"
   sg_ids           = "${local.sg_ids}"
