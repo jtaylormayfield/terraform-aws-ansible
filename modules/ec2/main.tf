@@ -25,13 +25,13 @@ data "template_file" "ansible" {
   template = "${file("${module.path}/play.tpl")}"
 
   vars {
-    git_cmds = "${formatlist("git clone %s %s", var.playbooks.*.git_url, var.playbooks.*.local_name)}"
-    play_cmds = "${formatlist("ansible-playbook %s/site.yml --extra-vars \"%s\" --user %s --key-file %s", var.playbooks.*.local_name, var.playbooks.*.extra_vars, var.playbooks.*.user, var.playbooks.*.key_file)}"
+    git_cmds  = "${formatlist("git clone %s %s", var.playbooks.*.git_url, var.playbooks.*.local_name)}"
+    play_cmds = "${formatlist("ansible-playbook %s/site.yml --extra-vars \"%s\" --user %s --key-file %s", var.playbooks.*.local_name, var.playbooks.*.extra_vars, var.playbooks.*.user, var.private_key_path)}"
   }
 }
 
 resource "local_file" "ansible" {
-  content = "${data.template_file.ansible.rendered}"
+  content  = "${data.template_file.ansible.rendered}"
   filename = "play.sh"
 }
 

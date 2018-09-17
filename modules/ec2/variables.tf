@@ -7,17 +7,21 @@ variable "instance_type" {
 }
 
 variable "playbooks" {
-  description = "List of playbook descriptors containing a valid Git URL to a playbook, name of local copy, extra variables, user, and key file."
-  type = "list"
+  description = "List of playbook descriptors containing a valid Git URL to a playbook, name of local copy, extra variables, user."
+  type        = "list"
+
   default = [
     {
-      git_url = ""
+      git_url    = ""
       local_name = ""
       extra_vars = ""
-      user = ""
-      key_file = ""
-    }
+      user       = ""
+    },
   ]
+}
+
+variable "private_key_path" {
+  description = "Local path to a private key file to use during configuration."
 }
 
 variable "public_key_path" {

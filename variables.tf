@@ -1,1 +1,83 @@
+variable "ami_id" {
+  description = "Amazon Machine Image ID used to provision the EC2 instance."
+}
 
+variable "aws_region" {
+  default     = "us-east-2"
+  description = "AWS region to use for API interaction."
+}
+
+variable "inbound_rules" {
+  default     = ["all"]
+  description = "Canned inbound security group rules. If 'all' is a value in the list, all ports will be open. Other values include 'http', 'https', 'ssh', and 'eph'."
+  type        = "list"
+}
+
+variable "instance_type" {
+  default     = "t3.micro"           # 2x1 burstable
+  description = "EC2 instance type."
+}
+
+variable "outbound_rules" {
+  default     = ["http", "https", "icmp"]
+  description = "Canned outbound security group rules. If 'all' is a value in the list, all ports will be open. Other values include 'http', 'https', 'ssh', and 'eph'."
+  type        = "list"
+}
+
+variable "playbooks" {
+  default = [
+    {
+      git_url    = ""
+      local_name = ""
+      extra_vars = ""
+      user       = ""
+    },
+  ]
+
+  description = "List of playbook descriptors containing a valid Git URL to a playbook, name of local copy, extra variables, user."
+  type        = "list"
+}
+
+variable "private_key_path" {
+  default     = "~/.ssh/id_rsa"
+  description = "Local path to a private key file to use during configuration."
+}
+
+variable "project_environment" {
+  default     = "default"
+  description = "Environment tag value."
+}
+
+variable "project_name" {
+  description = "Name tag value."
+}
+
+variable "public_key_path" {
+  default     = "~/.ssh/id_rsa.pub"
+  description = "Local path to a public key file to use during provisioning."
+}
+
+variable "security_enabled" {
+  default     = true
+  description = "If true, uses 'inbound_rules' and 'outbound_rules' to construct a security group."
+}
+
+variable "sg_ids" {
+  default     = []
+  description = "Preconfigured security group IDs."
+  type        = "list"
+}
+
+variable "subnet_id" {
+  description = "ID of the subnet in which the EC2 instance will be placed."
+}
+
+variable "volume_size" {
+  default     = "8"
+  description = "Size (in GB) of volume to create for the root block device."
+}
+
+variable "volume_type" {
+  default     = "gp2"
+  description = "Type of volume to create for the root block device. Valid options are 'standard' and 'gp2'."
+}
