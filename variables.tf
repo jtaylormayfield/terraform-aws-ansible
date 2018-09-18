@@ -1,11 +1,11 @@
 variable "ami_id" {
-  default     = "ami-9c0638f9"                                                # CentOS 1805
+  default     = "ami-9c0638f9"                                                # CentOS 1805 in us-east-2
   description = "Amazon Machine Image ID used to provision the EC2 instance."
 }
 
-variable "aws_region" {
-  default     = "us-east-2"                              # Ohio
-  description = "AWS region to use for API interaction."
+variable "aws_profile" {
+  default     = "default"
+  description = "AWS profile to use for API interaction. SHOULD INCLUDE A REGION."
 }
 
 variable "inbound_rules" {
