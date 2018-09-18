@@ -5,7 +5,7 @@ variable "ami_id" {
 
 variable "aws_profile" {
   default     = "default"
-  description = "AWS profile to use for API interaction. SHOULD INCLUDE A REGION."
+  description = "AWS profile to use for all API interaction."
 }
 
 variable "inbound_rules" {
@@ -33,11 +33,6 @@ variable "outbound_rules" {
 variable "playbook_file" {
   default     = "site.yml"
   description = "File name of the playbook (i.e. 'site.yml')."
-}
-
-variable "playbook_profile" {
-  default     = "default"
-  description = "AWS profile to use during Ansible configuration."
 }
 
 variable "playbook_system" {
