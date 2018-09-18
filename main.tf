@@ -18,6 +18,7 @@ module "ec2" {
   instance_type     = "${var.instance_type}"
   instance_var_name = "${var.instance_var_name}"
   playbook_file     = "${var.playbook_file}"
+  playbook_profile  = "${var.playbook_profile}"
   playbook_system   = "${var.playbook_system}"
   playbook_user     = "${var.playbook_user}"
   playbooks         = "${var.playbooks}"
