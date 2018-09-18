@@ -40,7 +40,7 @@ resource "random_id" "repo_id" {
 }
 
 data "template_file" "ansible" {
-  template = "${file("${path.module}/templates/play.${lookup(scripts, var.playbook_system)}.tpl")}"
+  template = "${file("${path.module}/templates/play.${lookup(local.scripts, var.playbook_system)}.tpl")}"
 
   vars {
     aws_profile = "${var.playbook_profile}"
