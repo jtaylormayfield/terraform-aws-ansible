@@ -43,8 +43,9 @@ data "template_file" "ansible" {
   template = "${file("${path.module}/templates/play.${lookup(scripts, var.playbook_system)}.tpl")}"
 
   vars {
-    git_cmds  = "${join(" & ", formatlist("git clone %s ${local.git_path}/%s", var.playbooks, random_id.repo_id.*.b64_url))}"
-    play_cmds = "${join(" && ", formatlist("ansible-playbook ${local.git_path}/%s/${var.playbook_file} --extra-vars \"${var.instance_var_name}=${aws_instance.default.id}\" --user %s --key-file %s", random_id.repo_id.*.b64_url, var.playbook_user, var.private_key_path))}"
+    aws_profile = "${var.playbook_profile}"
+    git_cmds    = "${join(" & ", formatlist("git clone %s ${local.git_path}/%s", var.playbooks, random_id.repo_id.*.b64_url))}"
+    play_cmds   = "${join(" && ", formatlist("ansible-playbook ${local.git_path}/%s/${var.playbook_file} --extra-vars \"${var.instance_var_name}=${aws_instance.default.id}\" --user %s --key-file %s", random_id.repo_id.*.b64_url, var.playbook_user, var.private_key_path))}"
   }
 }
 

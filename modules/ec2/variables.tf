@@ -19,6 +19,10 @@ variable "playbook_file" {
   description = "File name of the playbook (i.e. 'site.yml')."
 }
 
+variable "playbook_profile" {
+  desription = "AWS profile to use during Ansible configuration."
+}
+
 variable "playbook_system" {
   description = "OS of system running ansible. Only supported value is 'linux'."
 }

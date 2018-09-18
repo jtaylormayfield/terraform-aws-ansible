@@ -17,4 +17,4 @@ ${git_cmds}
 wait
 
 # Run playbooks
-${play_cmds}
+AWS_PROFILE=${aws_profile} ${play_cmds}
