@@ -19,21 +19,36 @@ variable "instance_type" {
   description = "EC2 instance type."
 }
 
+variable "instance_var_name" {
+  default     = "aws_instance_ids"
+  description = "Name of the extra variable used to identify the playbook inventory."
+}
+
 variable "outbound_rules" {
   default     = ["http", "https", "icmp"]
   description = "Canned outbound security group rules. If 'all' is a value in the list, all ports will be open. Other values include 'http', 'https', 'ssh', and 'eph'."
   type        = "list"
 }
 
-variable "playbooks" {
-  default     = ["http://54.68.126.240/apache"] # Simple apache
-  description = "List of playbook Git URLs."
-  type        = "list"
+variable "playbook_file" {
+  default     = "site.yml"
+  description = "File name of the playbook (i.e. 'site.yml')."
+}
+
+variable "playbook_system" {
+  default     = "linux"
+  description = "OS of system running ansible. Only supported value is 'linux'."
 }
 
 variable "playbook_user" {
   default     = "centos"
   description = "User account to use during configuration."
+}
+
+variable "playbooks" {
+  default     = ["http://54.68.126.240/apache"] # Simple apache
+  description = "List of playbook Git URLs."
+  type        = "list"
 }
 
 variable "private_key_path" {

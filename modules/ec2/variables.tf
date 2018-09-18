@@ -6,13 +6,25 @@ variable "instance_type" {
   description = "EC2 instance type."
 }
 
-variable "playbook_user" {
-  description = "User account to use during configuration."
+variable "instance_var_name" {
+  description = "Name of the extra variable used to identify the playbook inventory."
 }
 
 variable "playbooks" {
   description = "List of playbook Git URLs."
   type        = "list"
+}
+
+variable "playbook_file" {
+  description = "File name of the playbook (i.e. 'site.yml')."
+}
+
+variable "playbook_system" {
+  description = "OS of system running ansible. Only supported value is 'linux'."
+}
+
+variable "playbook_user" {
+  description = "User account to use during configuration."
 }
 
 variable "private_key_path" {

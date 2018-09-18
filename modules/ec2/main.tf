@@ -1,5 +1,9 @@
 locals {
   git_path = "${path.cwd}/.terraform/cache"
+
+  scripts = {
+    linux = "sh"
+  }
 }
 
 resource "aws_key_pair" "deployer" {
@@ -36,11 +40,11 @@ resource "random_id" "repo_id" {
 }
 
 data "template_file" "ansible" {
-  template = "${file("${path.module}/play.tpl")}"
+  template = "${file("${path.module}/templates/play.${lookup(scripts, var.playbook_system)}.tpl")}"
 
   vars {
     git_cmds  = "${join(" & ", formatlist("git clone %s ${local.git_path}/%s", var.playbooks, random_id.repo_id.*.b64_url))}"
-    play_cmds = "${join(" && ",formatlist("ansible-playbook ${local.git_path}/%s/site.yml --extra-vars \"aws_instance_ids=${aws_instance.default.id}\" --user %s --key-file %s", random_id.repo_id.*.b64_url, var.playbook_user, var.private_key_path))}"
+    play_cmds = "${join(" && ", formatlist("ansible-playbook ${local.git_path}/%s/${var.playbook_file} --extra-vars \"${var.instance_var_name}=${aws_instance.default.id}\" --user %s --key-file %s", random_id.repo_id.*.b64_url, var.playbook_user, var.private_key_path))}"
   }
 }
 
