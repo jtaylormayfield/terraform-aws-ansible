@@ -8,6 +8,11 @@ variable "aws_profile" {
   description = "AWS profile to use for all API interaction."
 }
 
+variable "aws_region" {
+  default     = "us-east-2"
+  description = "AWS region to use for all API interaction."
+}
+
 variable "inbound_rules" {
   default     = ["all"]
   description = "Canned inbound security group rules. If 'all' is a value in the list, all ports will be open. Other values include 'http', 'https', 'ssh', and 'eph'."
