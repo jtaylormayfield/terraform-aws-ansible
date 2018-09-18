@@ -20,7 +20,7 @@ variable "playbook_file" {
 }
 
 variable "playbook_profile" {
-  desription = "AWS profile to use during Ansible configuration."
+  description = "AWS profile to use during Ansible configuration."
 }
 
 variable "playbook_system" {
