@@ -28,6 +28,11 @@ variable "sg_ids" {
   type        = "list"
 }
 
+variable "sg_ids_custom" {
+  description = "Custom security group IDs."
+  type        = "list"
+}
+
 variable "subnet_id" {
   description = "ID of the subnet in which the EC2 instance will be placed."
 }
