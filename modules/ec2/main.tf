@@ -1,3 +1,7 @@
+locals {
+  git_path = "${path.cwd}/.terraform/cache"
+}
+
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
   public_key = "${file(var.public_key_path)}"
@@ -10,7 +14,7 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = ["${var.sg_ids}"]
   subnet_id              = "${var.subnet_id}"
 
-  # Workaround bug with AWS provider and the new T3 instance types.
+  # Workaround for bug terraform-providers/terraform-provider-aws#5654
   credit_specification {
     cpu_credits = "unlimited"
   }
@@ -35,8 +39,8 @@ data "template_file" "ansible" {
   template = "${file("${path.module}/play.tpl")}"
 
   vars {
-    git_cmds  = "${join(" & ", formatlist("git clone %s ${path.cwd}/%s", var.playbooks, random_id.repo_id.*.b64_url))}"
-    play_cmds = "${join(" && ",formatlist("ansible-playbook ${path.cwd}/%s/site.yml --extra-vars \"aws_instance_ids=${aws_instance.default.id}\" --user %s --key-file %s", random_id.repo_id.*.b64_url, var.playbook_user, var.private_key_path))}"
+    git_cmds  = "${join(" & ", formatlist("git clone %s ${local.git_path}/%s", var.playbooks, random_id.repo_id.*.b64_url))}"
+    play_cmds = "${join(" && ",formatlist("ansible-playbook ${local.git_path}/%s/site.yml --extra-vars \"aws_instance_ids=${aws_instance.default.id}\" --user %s --key-file %s", random_id.repo_id.*.b64_url, var.playbook_user, var.private_key_path))}"
   }
 }
 
