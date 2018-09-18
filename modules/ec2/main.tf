@@ -7,7 +7,7 @@ resource "aws_instance" "default" {
   ami                    = "${var.ami_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${aws_key_pair.deployer.id}"
-  vpc_security_group_ids = ["${compact(concat(var.sg_ids, var.sg_ids_custom))}"]
+  vpc_security_group_ids = ["${split(",", join(",", var.sg_ids))}"] # Workaround hashicorp/terraform#13103
   subnet_id              = "${var.subnet_id}"
 
   # Workaround bug with AWS provider and the new T3 instance types.
