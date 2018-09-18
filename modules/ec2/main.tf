@@ -53,6 +53,7 @@ data "template_file" "ansible" {
 resource "null_resource" "default" {
   triggers {
     instance_id = "${aws_instance.default.id}"
+    playbooks = "${var.playbooks}"
   }
 
   provisioner "local-exec" {
