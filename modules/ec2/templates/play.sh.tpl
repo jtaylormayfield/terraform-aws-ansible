@@ -21,3 +21,6 @@ wait
 
 # Run playbooks
 AWS_PROFILE=${aws_profile} ${play_cmds}
+
+# Remove cached playbooks
+rm -rf ${git_path_prefix}*
