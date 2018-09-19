@@ -2,12 +2,20 @@ variable "ami_id" {
   description = "Amazon Machine Image ID used to provision the EC2 instance."
 }
 
+variable "generate_key" {
+  description = "If true, use a local key pair to generate a provision key in AWS."
+}
+
 variable "instance_type" {
   description = "EC2 instance type."
 }
 
 variable "instance_var_name" {
   description = "Name of the extra variable used to identify the playbook inventory."
+}
+
+variable "key_name" {
+  description = "Name of the deployment key."
 }
 
 variable "playbooks" {

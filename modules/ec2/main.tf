@@ -7,14 +7,15 @@ locals {
 }
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
+  count      = "${var.generate_key ? 1 : 0}"
+  key_name   = "${var.key_name}"
   public_key = "${file(var.public_key_path)}"
 }
 
 resource "aws_instance" "default" {
   ami                    = "${var.ami_id}"
   instance_type          = "${var.instance_type}"
-  key_name               = "${aws_key_pair.deployer.id}"
+  key_name               = "${var.key_name}"
   vpc_security_group_ids = ["${var.sg_ids}"]
   subnet_id              = "${var.subnet_id}"
 

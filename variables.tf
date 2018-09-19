@@ -3,6 +3,11 @@ variable "ami_id" {
   description = "Amazon Machine Image ID used to provision the EC2 instance."
 }
 
+variable "generate_key" {
+  default     = true
+  description = "If true, use a local key pair to generate a provision key in AWS."
+}
+
 variable "inbound_rules" {
   default     = ["all"]
   description = "Canned inbound security group rules. If 'all' is a value in the list, all ports will be open. Other values include 'http', 'https', 'ssh', and 'eph'."
@@ -17,6 +22,11 @@ variable "instance_type" {
 variable "instance_var_name" {
   default     = "aws_instance_ids"
   description = "Name of the extra variable used to identify the playbook inventory."
+}
+
+variable "key_name" {
+  default     = "deployer-key"
+  description = "Name of the generated deployment key."
 }
 
 variable "outbound_rules" {
