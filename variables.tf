@@ -30,6 +30,11 @@ variable "playbook_file" {
   description = "File name of the playbook (i.e. 'site.yml')."
 }
 
+variable "playbook_profile" {
+  default     = "default"
+  description = "File name of the playbook (i.e. 'site.yml')."
+}
+
 variable "playbook_system" {
   default     = "linux"
   description = "OS of system running ansible. Only supported value is 'linux'."
