@@ -26,7 +26,7 @@ module "ec2" {
   private_key_path  = "${var.private_key_path}"
   public_key_path   = "${var.public_key_path}"
   sg_ids            = "${compact(concat(var.sg_ids, list(module.security.sg_id)))}"
-  subnet_id         = "${var.subnet_id}"
+  subnet_id         = "${data.aws_subnet.default.id}"
   tag_env           = "${local.tag_prefix_env}"
   tag_name          = "${local.tag_prefix_name}"
   volume_size       = "${var.volume_size}"
