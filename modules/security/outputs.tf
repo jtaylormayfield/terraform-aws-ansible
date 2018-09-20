@@ -1,3 +1,4 @@
-output "sg_id" {
-  value = "${var.enabled ? join("", aws_security_group.default.*.id[0]) : ""}"
+output "sg_ids" {
+  depends_on = ["aws_security_group.default"]
+  value      = "${aws_security_group.default.*.id}"
 }
