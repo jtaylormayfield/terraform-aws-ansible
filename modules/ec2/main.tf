@@ -4,8 +4,9 @@ locals {
   ansible_parms_arr = [
     "--extra-vars \"${var.instance_var_name}=${aws_instance.default.id}\"",
     "--key-file ${var.private_key_path}",
-    "--user ${var.playbook_user}"
+    "--user ${var.playbook_user}",
   ]
+
   ansible_parms = "${join(" ", local.ansible_parms_arr)}"
 
   scripts = {
