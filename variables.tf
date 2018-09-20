@@ -85,26 +85,6 @@ variable "public_key_path" {
   description = "Local path to a public key file to use during provisioning."
 }
 
-variable "remote_config" {
-  default     = false
-  description = "Configure instance from a remote location."
-}
-
-variable "remote_config_host" {
-  default     = ""
-  description = "Remote host used to run configuration."
-}
-
-variable "remote_config_host_key" {
-  default     = ""
-  description = "Remote host used to run configuration."
-}
-
-variable "remote_config_private_key" {
-  default     = ""
-  description = "Remote host used to run configuration."
-}
-
 variable "sg_ids" {
   default     = []
   description = "Preconfigured security group IDs."
