@@ -13,8 +13,10 @@ module "ec2" {
   source = "./modules/ec2"
 
   ami_id            = "${var.ami_id}"
+  generate_key      = "${var.generate_key}"
   instance_type     = "${var.instance_type}"
   instance_var_name = "${var.instance_var_name}"
+  key_name          = "${var.key_name}"
   playbook_file     = "${var.playbook_file}"
   playbook_profile  = "${var.playbook_profile}"
   playbook_system   = "${var.playbook_system}"
