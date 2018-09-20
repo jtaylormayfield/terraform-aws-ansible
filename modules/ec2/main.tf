@@ -51,7 +51,7 @@ data "template_file" "ansible" {
   }
 }
 
-resource "null_resource" "default" {
+resource "null_resource" "provisioner" {
   triggers {
     instance_id = "${aws_instance.default.id}"
   }
