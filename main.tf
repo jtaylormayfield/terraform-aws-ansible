@@ -35,7 +35,7 @@ module "ec2" {
 module "security" {
   source = "./modules/security"
 
-  enabled        = "${var.security_enabled}"
+  enabled        = "${var.generate_security_groups}"
   inbound_rules  = "${var.inbound_rules}"
   outbound_rules = "${var.outbound_rules}"
   tag_env        = "${local.tag_prefix_env}"

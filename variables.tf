@@ -8,6 +8,11 @@ variable "generate_key" {
   description = "If true, use a local key pair to generate a provision key in AWS."
 }
 
+variable "generate_security_groups" {
+  default     = true
+  description = "If true, uses 'inbound_rules' and 'outbound_rules' to construct a security group."
+}
+
 variable "inbound_rules" {
   default     = ["all"]
   description = "Canned inbound security group rules. If 'all' is a value in the list, all ports will be open. Other values include 'http', 'https', 'ssh', and 'eph'."
@@ -78,11 +83,6 @@ variable "project_name" {
 variable "public_key_path" {
   default     = "~/.ssh/id_rsa.pub"
   description = "Local path to a public key file to use during provisioning."
-}
-
-variable "security_enabled" {
-  default     = true
-  description = "If true, uses 'inbound_rules' and 'outbound_rules' to construct a security group."
 }
 
 variable "sg_ids" {
