@@ -1,8 +1,13 @@
 locals {
   git_path_prefix = "${path.cwd}/.terraform/cache/git-"
 
+  ansible_extra_vars = [
+    "${var.instance_var_name}=${aws_instance.default.id}",
+    "host_key_checking=${var.bypass_fingerprint ? "false" : "true"}",
+  ]
+
   ansible_parms_arr = [
-    "--extra-vars \"${var.instance_var_name}=${aws_instance.default.id}\"",
+    "--extra-vars \"${join(" ", local.ansible_extra_vars)}\"",
     "--key-file ${var.private_key_path}",
     "--user ${var.playbook_user}",
   ]

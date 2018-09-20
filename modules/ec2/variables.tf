@@ -2,6 +2,10 @@ variable "ami_id" {
   description = "Amazon Machine Image ID used to provision the EC2 instance."
 }
 
+variable "bypass_fingerprint" {
+  description = "If 'true', bypass host fingerprint checking during configuration."
+}
+
 variable "generate_key" {
   description = "If true, use a local key pair to generate a provision key in AWS."
 }
