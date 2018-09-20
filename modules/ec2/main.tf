@@ -6,7 +6,7 @@ locals {
     "--key-file ${var.private_key_path}",
     "--user ${var.playbook_user}"
   ]
-  ansible_parms = "${join(" ", ansible_parms_arr)}"
+  ansible_parms = "${join(" ", local.ansible_parms_arr)}"
 
   scripts = {
     linux = "sh"
