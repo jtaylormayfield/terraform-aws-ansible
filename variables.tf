@@ -4,7 +4,7 @@ variable "ami_id" {
 }
 
 variable "bypass_fingerprint" {
-  default = false
+  default     = false
   description = "If 'true', bypass host fingerprint checking during configuration."
 }
 
