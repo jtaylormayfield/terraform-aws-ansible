@@ -41,9 +41,7 @@ resource "aws_security_group" "default" {
 }
 
 resource "aws_security_group_rule" "inbound" {
-  depends_on = ["aws_security_group.default"]
-
-  count             = "${local.inbound_open ? "1" : length(var.inbound_rules)}"
+  count             = "${!var.enabled ? 0 : local.inbound_open ? "1" : length(var.inbound_rules)}"
   cidr_blocks       = ["0.0.0.0/0"]
   protocol          = "${local.inbound_open ? "all" : var.inbound_rules[count.index] == "icmp" ? "icmp" : "tcp"}"
   from_port         = "${lookup(local.tcp_rules, format(local.sg_fmt, var.inbound_rules[count.index], "from"))}"
@@ -53,9 +51,7 @@ resource "aws_security_group_rule" "inbound" {
 }
 
 resource "aws_security_group_rule" "outbound" {
-  depends_on = ["aws_security_group.default"]
-
-  count             = "${local.outbound_open ? "1" : length(var.outbound_rules)}"
+  count             = "${!var.enabled ? 0 : local.outbound_open ? "1" : length(var.outbound_rules)}"
   cidr_blocks       = ["0.0.0.0/0"]
   protocol          = "${local.outbound_open ? "all" : var.outbound_rules[count.index] == "icmp" ? "icmp" : "tcp"}"
   from_port         = "${lookup(local.tcp_rules, format(local.sg_fmt, var.outbound_rules[count.index], "from"))}"
