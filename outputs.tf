@@ -5,4 +5,3 @@ output "key_name" {
 output "security_group_ids" {
   value = "${module.ec2.sg_ids}"
 }
-

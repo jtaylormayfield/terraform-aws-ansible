@@ -51,12 +51,34 @@ data "template_file" "ansible" {
   }
 }
 
-resource "null_resource" "provisioner" {
+resource "null_resource" "local_provisioner" {
+  count = "${var.remote_config ? 0 : 1}"
+
   triggers {
     instance_id = "${aws_instance.default.id}"
   }
 
   provisioner "local-exec" {
     command = "${data.template_file.ansible.rendered}"
+  }
+}
+
+resource "null_resource" "remote_provisioner" {
+  count = "${var.remote_config ? 1 : 0}"
+
+  triggers {
+    instance_id = "${aws_instance.default.id}"
+  }
+
+  provisioner "remote-exec" {
+    connection {
+      agent       = false
+      host        = "${var.remote_config_host}"
+      host_key    = "${var.remote_config_host_key}"
+      private_key = "${var.remote_config_private_key}"
+      type        = "ssh"
+    }
+
+    inline = ["${data.template_file.ansible.rendered}"]
   }
 }
