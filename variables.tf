@@ -25,7 +25,7 @@ variable "instance_type" {
 }
 
 variable "instance_var_name" {
-  default     = "aws_instance_ids"
+  default     = "instance_ids"
   description = "Name of the extra variable used to identify the playbook inventory."
 }
 
