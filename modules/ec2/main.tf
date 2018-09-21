@@ -46,7 +46,7 @@ resource "null_resource" "provisioner" {
 
   # Git clone all repositories
   provisioner "local-exec" {
-    command = "${format("%s && %s", join(" & ", formatlist("git clone %s %s%s", var.playbooks, local.git_path_prefix, local.git_dirs)), "wait")}"
+    command = "${format("%s & %s", join(" & ", formatlist("git clone %s %s%s", var.playbooks, local.git_path_prefix, local.git_dirs)), "wait")}"
     interpreter = ["/bin/bash"]
   }
 
@@ -64,7 +64,7 @@ resource "null_resource" "provisioner" {
 
   # Remove cached Git directories
   provisioner "local-exec" {
-    command = "${format("%s && %s", join(" & ", formatlist("rm -rf %s%s", local.git_path_prefix, local.git_dirs)), "wait")}"
+    command = "${format("%s & %s", join(" & ", formatlist("rm -rf %s%s", local.git_path_prefix, local.git_dirs)), "wait")}"
     interpreter = ["/bin/bash"]
   }
 }
