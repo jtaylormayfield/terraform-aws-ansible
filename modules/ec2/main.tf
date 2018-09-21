@@ -10,7 +10,6 @@ locals {
   ansible_env = "${join(" ", local.ansible_env_arr)}"
 
   ansible_parms_arr = [
-    "--become-method=su",
     "--extra-vars ${var.instance_var_name}=${aws_instance.default.id}",
     "--key-file ${var.private_key_path}",
     "--user ${var.playbook_user}",
