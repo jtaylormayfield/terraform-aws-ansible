@@ -4,10 +4,8 @@ locals {
   ansible_env_arr = [
     "AWS_PROFILE=${var.playbook_profile}",
     "ANSIBLE_HOST_KEY_CHECKING=${var.bypass_fingerprint ? "False" : "True"}",
-    "ANSIBLE_PIPELINING=True"
+    "ANSIBLE_PIPELINING=True",
   ]
-
-  ansible_env = "${join(" ", local.ansible_env_arr)}"
 
   ansible_parms_arr = [
     "--extra-vars ${var.instance_var_name}=${aws_instance.default.id}",
@@ -15,9 +13,11 @@ locals {
     "--user ${var.playbook_user}",
   ]
 
+  ansible_env   = "${join(" ", local.ansible_env_arr)}"
   ansible_parms = "${join(" ", local.ansible_parms_arr)}"
-  ansible_cmds  = "${format("%s %s", local.ansible_env, join(" && ", formatlist("ansible-playbook ${local.git_path_prefix}%s/${var.playbook_file} %s", random_id.repo_id.*.b64_url, local.ansible_parms)))}"
-  git_cmds      = "${join(" & ", formatlist("git clone %s ${local.git_path_prefix}%s", var.playbooks, random_id.repo_id.*.b64_url))}"
+
+  ansible_cmds = "${join(" && ", formatlist("%s ansible-playbook %s%s/%s %s", local.ansible_env, local.git_path_prefix, random_id.repo_id.*.b64_url, var.playbook_file, local.ansible_parms))}"
+  git_cmds     = "${join(" & ", formatlist("git clone %s %s%s", var.playbooks, local.git_path_prefix, random_id.repo_id.*.b64_url))}"
 
   scripts = {
     linux = "sh"
@@ -63,7 +63,7 @@ data "template_file" "ansible" {
   }
 }
 
-resource "null_resource" "local_provisioner" {
+resource "null_resource" "provisioner" {
   triggers {
     instance_id = "${aws_instance.default.id}"
   }
