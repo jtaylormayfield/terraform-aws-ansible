@@ -15,7 +15,7 @@ locals {
   ]
 
   ansible_parms = "${join(" ", local.ansible_parms_arr)}"
-  ansible_cmds  = "${concat(local.ansible_env, join(" && ", formatlist("ansible-playbook ${local.git_path_prefix}%s/${var.playbook_file} %s", random_id.repo_id.*.b64_url, local.ansible_parms)))}"
+  ansible_cmds  = "${format("%s %s", local.ansible_env, join(" && ", formatlist("ansible-playbook ${local.git_path_prefix}%s/${var.playbook_file} %s", random_id.repo_id.*.b64_url, local.ansible_parms)))}"
   git_cmds      = "${join(" & ", formatlist("git clone %s ${local.git_path_prefix}%s", var.playbooks, random_id.repo_id.*.b64_url))}"
 
   scripts = {
