@@ -4,11 +4,13 @@ locals {
   ansible_env_arr = [
     "AWS_PROFILE=${var.playbook_profile}",
     "ANSIBLE_HOST_KEY_CHECKING=${var.bypass_fingerprint ? "False" : "True"}",
+    "ANSIBLE_PIPELINING=True"
   ]
 
   ansible_env = "${join(" ", local.ansible_env_arr)}"
 
   ansible_parms_arr = [
+    "--become-method=su",
     "--extra-vars ${var.instance_var_name}=${aws_instance.default.id}",
     "--key-file ${var.private_key_path}",
     "--user ${var.playbook_user}",
