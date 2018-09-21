@@ -34,6 +34,7 @@ module "ec2" {
   tag_name           = "${local.tag_prefix_name}"
   volume_size        = "${var.volume_size}"
   volume_type        = "${var.volume_type}"
+  wait_hook          = "${var.wait_hook}"
 }
 
 module "security" {

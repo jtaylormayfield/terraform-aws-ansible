@@ -47,6 +47,11 @@ resource "null_resource" "provisioner" {
     instance_id = "${aws_instance.i.id}"
   }
 
+  # Catch wait hook if necessary
+  provisioner "local-exec" {
+    command = "${var.wait_hook == "" ? "" : "echo \"... Done waiting on ${var.wait_hook}\""}"
+  }
+
   # Git clone all repositories
   provisioner "local-exec" {
     command = "${format("%s & %s", join(" & ", formatlist("git clone %s %s%s", var.playbooks, local.git_path_prefix, local.git_dirs)), "wait")}"

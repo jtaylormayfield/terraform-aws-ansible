@@ -124,3 +124,8 @@ variable "volume_type" {
   default     = "gp2"
   description = "Type of volume to create for the root block device. Valid options are 'standard' and 'gp2'."
 }
+
+variable "wait_hook" {
+  default     = ""
+  description = "Provision process will wait on this variable."
+}
