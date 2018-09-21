@@ -46,7 +46,7 @@ variable "jump_host" {
 
 variable "jump_user" {
   default    = ""
-  desription = "User for jump host. Ignored if 'jump_host' is empty."
+  description = "User for jump host. Ignored if 'jump_host' is empty."
 }
 
 variable "key_name" {
