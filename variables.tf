@@ -60,11 +60,6 @@ variable "playbook_profile" {
   description = "File name of the playbook (i.e. 'site.yml')."
 }
 
-variable "playbook_system" {
-  default     = "linux"
-  description = "OS of system running ansible. Only supported value is 'linux'."
-}
-
 variable "playbook_user" {
   default     = "centos"
   description = "User account to use during configuration."
