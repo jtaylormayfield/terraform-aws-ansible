@@ -26,6 +26,10 @@ variable "jump_host" {
   description = "Host to use to jump the SSH connection over (i.e. for private subnets). Ignored if empty."
 }
 
+variable "jump_key_path" {
+  description = "Private key path for jump host. Ignored if 'jump_host' is empty."
+}
+
 variable "jump_user" {
   description = "User for jump host. Ignored if 'jump_host' is empty."
 }
