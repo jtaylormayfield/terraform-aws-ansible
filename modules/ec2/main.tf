@@ -1,18 +1,22 @@
 locals {
-  git_path_prefix = "${path.cwd}/.terraform/cache/git-"
+  git_path_prefix = "/tmp/terraform/cache/git-"
 
-  ansible_extra_vars = [
-    "${var.instance_var_name}=${aws_instance.default.id}",
-    "host_key_checking=${var.bypass_fingerprint ? "false" : "true"}",
+  ansible_env_arr = [
+    "AWS_PROFILE=${var.playbook_profile}",
+    "ANSIBLE_HOST_KEY_CHECKING=${var.bypass_fingerprint ? "False" : "True"}",
   ]
 
+  ansible_env = "${join(" ", local.ansible_env_arr)}"
+
   ansible_parms_arr = [
-    "--extra-vars \"${join(" ", local.ansible_extra_vars)}\"",
+    "--extra-vars ${var.instance_var_name}=${aws_instance.default.id}",
     "--key-file ${var.private_key_path}",
     "--user ${var.playbook_user}",
   ]
 
   ansible_parms = "${join(" ", local.ansible_parms_arr)}"
+  ansible_cmds  = "${concat(local.ansible_env, join(" && ", formatlist("ansible-playbook ${local.git_path_prefix}%s/${var.playbook_file} %s", random_id.repo_id.*.b64_url, local.ansible_parms)))}"
+  git_cmds      = "${join(" & ", formatlist("git clone %s ${local.git_path_prefix}%s", var.playbooks, random_id.repo_id.*.b64_url))}"
 
   scripts = {
     linux = "sh"
@@ -52,10 +56,9 @@ data "template_file" "ansible" {
   template = "${file("${path.module}/templates/play.${lookup(local.scripts, var.playbook_system)}.tpl")}"
 
   vars {
-    aws_profile     = "${var.playbook_profile}"
-    git_cmds        = "${join(" & ", formatlist("git clone %s ${local.git_path_prefix}%s", var.playbooks, random_id.repo_id.*.b64_url))}"
+    git_cmds        = "${local.git_cmds}"
     git_path_prefix = "${local.git_path_prefix}"
-    play_cmds       = "${join(" && ", formatlist("ansible-playbook ${local.git_path_prefix}%s/${var.playbook_file} %s", random_id.repo_id.*.b64_url, local.ansible_parms))}"
+    play_cmds       = "${local.ansible_cmds}"
   }
 }
 
