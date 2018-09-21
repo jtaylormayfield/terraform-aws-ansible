@@ -3,5 +3,5 @@ output "key_name" {
 }
 
 output "sg_ids" {
-  value = "${aws_instance.default.vpc_security_group_ids}"
+  value = "${aws_instance.i.vpc_security_group_ids}"
 }
