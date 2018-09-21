@@ -2,6 +2,10 @@ variable "ami_id" {
   description = "Amazon Machine Image ID used to provision the EC2 instance."
 }
 
+variable "ansible_pipelining" {
+  description = "If true, execute many Ansible modules without actual file transfer. This can result in a very significant performance improvement when enabled, but requires the AMI to be setup correctly."
+}
+
 variable "bypass_fingerprint" {
   description = "If 'true', bypass host fingerprint checking during configuration."
 }

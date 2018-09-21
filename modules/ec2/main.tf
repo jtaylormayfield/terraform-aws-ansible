@@ -4,7 +4,7 @@ locals {
   ansible_env_arr = [
     "AWS_PROFILE=${var.playbook_profile}",
     "ANSIBLE_HOST_KEY_CHECKING=${var.bypass_fingerprint ? "False" : "True"}",
-    "ANSIBLE_PIPELINING=True",
+    "ANSIBLE_PIPELINING=${var.ansible_pipelining ? "True" : "False"}",
   ]
 
   ansible_parms_arr = [

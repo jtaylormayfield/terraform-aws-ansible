@@ -13,6 +13,7 @@ module "ec2" {
   source = "./modules/ec2"
 
   ami_id             = "${var.ami_id}"
+  ansible_pipelining = "${var.ansible_pipelining}"
   bypass_fingerprint = "${var.bypass_fingerprint}"
   generate_key       = "${var.generate_key}"
   instance_type      = "${var.instance_type}"
