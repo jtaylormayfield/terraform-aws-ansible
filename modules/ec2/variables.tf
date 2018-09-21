@@ -39,10 +39,6 @@ variable "playbook_profile" {
   description = "AWS profile to use during Ansible configuration."
 }
 
-variable "playbook_system" {
-  description = "OS of system running ansible. Only supported value is 'linux'."
-}
-
 variable "playbook_user" {
   description = "User account to use during configuration."
 }

@@ -21,7 +21,6 @@ module "ec2" {
   key_name           = "${var.key_name}"
   playbook_file      = "${var.playbook_file}"
   playbook_profile   = "${var.playbook_profile}"
-  playbook_system    = "${var.playbook_system}"
   playbook_user      = "${var.playbook_user}"
   playbooks          = "${var.playbooks}"
   private_key_path   = "${var.private_key_path}"
