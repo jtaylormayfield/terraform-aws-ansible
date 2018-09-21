@@ -4,7 +4,7 @@ variable "ami_id" {
 }
 
 variable "ansible_pipelining" {
-  default = false
+  default     = false
   description = "If true, execute many Ansible modules without actual file transfer. This can result in a very significant performance improvement when enabled, but requires the AMI to be setup correctly."
 }
 
