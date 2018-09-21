@@ -1,27 +1,29 @@
 locals {
   ansible_parms_arr = [
-    "--extra-vars ${var.instance_var_name}=${aws_instance.default.id}",
-    "--key-file ${var.private_key_path}",
-    "--user ${var.playbook_user}",
+    "${var.instance_var_name == "" ? "" : "--extra-vars ${var.instance_var_name}=${aws_instance.i.id}"}",
+    "${var.private_key_path == "" ? "" : "--key-file ${var.private_key_path}"}",
+    "${var.playbook_user == "" ? "" : "--user ${var.playbook_user}"}",
+    "${var.jump_host == "" ? "" : "--ssh-common-args='-o ProxyCommand=\"ssh -W %h:%p -q ${var.jump_user}@${var.jump_host}\"'"}",
   ]
 
-  ansible_parms   = "${join(" ", local.ansible_parms_arr)}"
-  git_dirs        = "${random_id.repo_id.*.b64_url}"
+  ansible_parms   = "${join(" ", compact(local.ansible_parms_arr))}"
+  git_dirs        = "${random_id.repo_dir.*.b64_url}"
   git_path_prefix = "/tmp/terraform/cache/git-"
 }
 
-resource "aws_key_pair" "deployer" {
-  count      = "${var.generate_key ? 1 : 0}"
+resource "aws_key_pair" "kp" {
+  count = "${var.generate_key ? 1 : 0}"
+
   key_name   = "${var.key_name}"
   public_key = "${file(var.public_key_path)}"
 }
 
-resource "aws_instance" "default" {
+resource "aws_instance" "i" {
   ami                    = "${var.ami_id}"
   instance_type          = "${var.instance_type}"
   key_name               = "${var.key_name}"
-  vpc_security_group_ids = ["${var.sg_ids}"]
   subnet_id              = "${var.subnet_id}"
+  vpc_security_group_ids = ["${var.sg_ids}"]
 
   root_block_device {
     volume_size = "${var.volume_size}"
@@ -34,14 +36,15 @@ resource "aws_instance" "default" {
   }
 }
 
-resource "random_id" "repo_id" {
-  count       = "${length(var.playbooks)}"
+resource "random_id" "repo_dir" {
+  count = "${length(var.playbooks)}"
+
   byte_length = 8
 }
 
 resource "null_resource" "provisioner" {
   triggers {
-    instance_id = "${aws_instance.default.id}"
+    instance_id = "${aws_instance.i.id}"
   }
 
   # Git clone all repositories

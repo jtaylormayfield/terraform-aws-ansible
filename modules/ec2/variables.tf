@@ -22,6 +22,14 @@ variable "instance_var_name" {
   description = "Name of the extra variable used to identify the playbook inventory."
 }
 
+variable "jump_host" {
+  description = "Host to use to jump the SSH connection over (i.e. for private subnets). Ignored if empty."
+}
+
+variable "jump_user" {
+  desription = "User for jump host. Ignored if 'jump_host' is empty."
+}
+
 variable "key_name" {
   description = "Name of the deployment key."
 }

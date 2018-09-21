@@ -18,6 +18,8 @@ module "ec2" {
   generate_key       = "${var.generate_key}"
   instance_type      = "${var.instance_type}"
   instance_var_name  = "${var.instance_var_name}"
+  jump_host          = "${var.jump_host}"
+  jump_user          = "${var.jump_user}"
   key_name           = "${var.key_name}"
   playbook_file      = "${var.playbook_file}"
   playbook_profile   = "${var.playbook_profile}"
