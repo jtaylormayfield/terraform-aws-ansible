@@ -47,13 +47,11 @@ resource "null_resource" "provisioner" {
   # Git clone all repositories
   provisioner "local-exec" {
     command = "${format("%s & %s", join(" & ", formatlist("git clone %s %s%s", var.playbooks, local.git_path_prefix, local.git_dirs)), "wait")}"
-    interpreter = ["/bin/bash"]
   }
 
   # Run playbooks
   provisioner "local-exec" {
     command = "${join(" && ", formatlist("ansible-playbook %s%s/%s %s", local.git_path_prefix, local.git_dirs, var.playbook_file, local.ansible_parms))}"
-    interpreter = ["/bin/bash"]
 
     environment {
       AWS_PROFILE               = "${var.playbook_profile}"
@@ -65,6 +63,5 @@ resource "null_resource" "provisioner" {
   # Remove cached Git directories
   provisioner "local-exec" {
     command = "${format("%s & %s", join(" & ", formatlist("rm -rf %s%s", local.git_path_prefix, local.git_dirs)), "wait")}"
-    interpreter = ["/bin/bash"]
   }
 }
