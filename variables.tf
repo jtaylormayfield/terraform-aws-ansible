@@ -14,7 +14,7 @@ variable "bypass_fingerprint" {
 }
 
 variable "ec2_ini_path" {
-  default = "/etc/ansible/ec2.ini"
+  default     = "/etc/ansible/ec2.ini"
   description = "A path to the configuration file used for Ansible EC2 dynamic inventory. See: https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/ec2.py for more information."
 }
 
@@ -42,6 +42,11 @@ variable "instance_type" {
 variable "instance_var_name" {
   default     = "instance_ids"
   description = "Name of the extra variable used to identify the playbook inventory."
+}
+
+variable "jump_bypass_fingerprint" {
+  default = false
+  description = "Bypass jump host fingerprint check. Ignored if 'jump_host' is empty."
 }
 
 variable "jump_host" {
