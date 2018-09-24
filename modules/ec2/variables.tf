@@ -18,6 +18,11 @@ variable "generate_key" {
   description = "If true, use a local key pair to generate a provision key in AWS."
 }
 
+variable "global_ansible_extra_var" {
+  description = "Array of variables that will always be passed as extra vars."
+  type = "list"
+}
+
 variable "instance_type" {
   description = "EC2 instance type."
 }

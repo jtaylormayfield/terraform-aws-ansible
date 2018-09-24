@@ -28,6 +28,12 @@ variable "generate_security_groups" {
   description = "If true, uses 'inbound_rules' and 'outbound_rules' to construct a security group."
 }
 
+variable "global_ansible_extra_var" {
+  default = []
+  description = "Array of variables that will always be passed as extra vars."
+  type = "list"
+}
+
 variable "inbound_rules" {
   default     = ["all"]
   description = "Canned inbound security group rules. If 'all' is a value in the list, all ports will be open. Other values include 'http', 'https', 'ssh', and 'eph'."

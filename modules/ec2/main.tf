@@ -1,6 +1,12 @@
 locals {
+  ansible_extra_vars_arr = [
+    "${var.global_ansible_extra_vars}",
+    "${var.instance_var_name}=${aws_instance.i.id}",
+  ]
+  ansible_extra_vars = "${join(" ", compact(local.ansible_extra_vars_arr))}"
+
   ansible_parms_arr = [
-    "${var.instance_var_name == "" ? "" : "--extra-vars ${var.instance_var_name}=${aws_instance.i.id}"}",
+    "${var.instance_var_name == "" ? "" : "--extra-vars \"${local.ansible_extra_vars}\""}",
     "${var.private_key_path == "" ? "" : "--key-file ${var.private_key_path}"}",
     "${var.playbook_user == "" ? "" : "--user ${var.playbook_user}"}",
     "${var.jump_host == "" ? "" : "--ssh-common-args='-o ProxyCommand=\"ssh -o StrictHostKeyChecking=${var.jump_bypass_fingerprint ? "no" : "yes"} -W %h:%p -q -i ${var.jump_key_path} ${var.jump_user}@${var.jump_host}\"'"}",
