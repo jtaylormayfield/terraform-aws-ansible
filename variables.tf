@@ -28,7 +28,7 @@ variable "generate_security_groups" {
   description = "If true, uses 'inbound_rules' and 'outbound_rules' to construct a security group."
 }
 
-variable "global_ansible_extra_var" {
+variable "global_ansible_extra_vars" {
   default     = []
   description = "Array of variables that will always be passed as extra vars."
   type        = "list"

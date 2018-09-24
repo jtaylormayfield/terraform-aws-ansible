@@ -18,7 +18,7 @@ variable "generate_key" {
   description = "If true, use a local key pair to generate a provision key in AWS."
 }
 
-variable "global_ansible_extra_var" {
+variable "global_ansible_extra_vars" {
   description = "Array of variables that will always be passed as extra vars."
   type        = "list"
 }
