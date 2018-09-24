@@ -29,9 +29,9 @@ variable "generate_security_groups" {
 }
 
 variable "global_ansible_extra_var" {
-  default = []
+  default     = []
   description = "Array of variables that will always be passed as extra vars."
-  type = "list"
+  type        = "list"
 }
 
 variable "inbound_rules" {

@@ -3,6 +3,7 @@ locals {
     "${var.global_ansible_extra_vars}",
     "${var.instance_var_name}=${aws_instance.i.id}",
   ]
+
   ansible_extra_vars = "${join(" ", compact(local.ansible_extra_vars_arr))}"
 
   ansible_parms_arr = [

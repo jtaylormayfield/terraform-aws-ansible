@@ -20,7 +20,7 @@ variable "generate_key" {
 
 variable "global_ansible_extra_var" {
   description = "Array of variables that will always be passed as extra vars."
-  type = "list"
+  type        = "list"
 }
 
 variable "instance_type" {
