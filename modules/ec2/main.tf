@@ -62,9 +62,10 @@ resource "null_resource" "provisioner" {
     command = "${join(" && ", formatlist("ansible-playbook %s%s/%s %s", local.git_path_prefix, local.git_dirs, var.playbook_file, local.ansible_parms))}"
 
     environment {
-      AWS_PROFILE               = "${var.playbook_profile}"
       ANSIBLE_HOST_KEY_CHECKING = "${var.bypass_fingerprint ? "False" : "True"}"
       ANSIBLE_PIPELINING        = "${var.ansible_pipelining ? "True" : "False"}"
+      AWS_PROFILE               = "${var.playbook_profile}"
+      EC2_INI_PATH              = "${var.ec2_ini_path}"
     }
   }
 

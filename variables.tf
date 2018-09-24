@@ -13,6 +13,11 @@ variable "bypass_fingerprint" {
   description = "If 'true', bypass host fingerprint checking during configuration."
 }
 
+variable "ec2_ini_path" {
+  default = "/etc/ansible/ec2.ini"
+  description = "A path to the configuration file used for Ansible EC2 dynamic inventory. See: https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/ec2.py for more information."
+}
+
 variable "generate_key" {
   default     = true
   description = "If true, use a local key pair to generate a provision key in AWS."
