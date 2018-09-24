@@ -45,7 +45,7 @@ variable "instance_var_name" {
 }
 
 variable "jump_bypass_fingerprint" {
-  default = false
+  default     = false
   description = "Bypass jump host fingerprint check. Ignored if 'jump_host' is empty."
 }
 
