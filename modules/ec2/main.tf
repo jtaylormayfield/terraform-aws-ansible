@@ -49,7 +49,7 @@ resource "null_resource" "provisioner" {
 
   # Catch wait hook if necessary
   provisioner "local-exec" {
-    command = "echo \"Done waiting on ... ${var.wait_hook == "" ? "nothing" : "${var.wait_hook}\""}"
+    command = "echo \"Done waiting on ... ${var.wait_hook == "" ? "nothing" : "${var.wait_hook}"}\""
   }
 
   # Git clone all repositories
