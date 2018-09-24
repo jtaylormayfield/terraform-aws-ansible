@@ -15,6 +15,7 @@ module "ec2" {
   ami_id             = "${var.ami_id}"
   ansible_pipelining = "${var.ansible_pipelining}"
   bypass_fingerprint = "${var.bypass_fingerprint}"
+  ec2_ini_path       = "${var.ec2_ini_path}"
   generate_key       = "${var.generate_key}"
   instance_type      = "${var.instance_type}"
   instance_var_name  = "${var.instance_var_name}"
