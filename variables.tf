@@ -89,7 +89,6 @@ variable "playbook_user" {
 }
 
 variable "playbooks" {
-  default     = ["http://54.68.126.240/apache"] # Simple apache
   description = "List of playbook Git URLs."
   type        = "list"
 }
