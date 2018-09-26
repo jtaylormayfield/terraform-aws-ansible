@@ -33,6 +33,7 @@ variable "instance_var_name" {
 
 variable "jump" {
   description = "Jump host specification."
+  type        = "map"
 }
 
 variable "key_name" {

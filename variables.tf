@@ -59,6 +59,7 @@ variable "jump_spec" {
   }
 
   description = "Jump host specification map. Ignored if the `host` key is not specified or its value is empty."
+  type        = "map"
 }
 
 variable "key_name" {
