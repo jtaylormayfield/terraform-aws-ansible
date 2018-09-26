@@ -10,7 +10,7 @@ variable "ansible_pipelining" {
 
 variable "bypass_fingerprint" {
   default     = false
-  description = "If 'true', bypass host fingerprint checking during configuration."
+  description = "If `true`, bypass host fingerprint checking during configuration."
 }
 
 variable "ec2_ini_path" {
@@ -25,7 +25,7 @@ variable "generate_key" {
 
 variable "generate_security_groups" {
   default     = true
-  description = "If true, uses 'inbound_rules' and 'outbound_rules' to construct a security group."
+  description = "If true, uses `inbound_rules` and `outbound_rules` to construct a security group."
 }
 
 variable "global_ansible_extra_vars" {
@@ -36,7 +36,7 @@ variable "global_ansible_extra_vars" {
 
 variable "inbound_rules" {
   default     = ["all"]
-  description = "Canned inbound security group rules. If 'all' is a value in the list, all ports will be open. Other values include 'http', 'https', 'ssh', and 'eph'."
+  description = "Canned inbound security group rules. Ignored if `generate_security_groups` is `false`. If `all` is a value in the list, all ports will be open. Other values include `icmp`, `http`, `https`, `ssh`, `eph`, `nat`, `mysql`, `pgsql`, and `oracle`."
   type        = "list"
 }
 
@@ -50,24 +50,15 @@ variable "instance_var_name" {
   description = "Name of the extra variable used to identify the playbook inventory."
 }
 
-variable "jump_bypass_fingerprint" {
-  default     = false
-  description = "Bypass jump host fingerprint check. Ignored if 'jump_host' is empty."
-}
+variable "jump_spec" {
+  default = {
+    bypass_fingerprint = false
+    host               = ""
+    key_path           = ""
+    user               = ""
+  }
 
-variable "jump_host" {
-  default     = ""
-  description = "Host to use to jump the SSH connection over (i.e. for private subnets). Ignored if empty."
-}
-
-variable "jump_key_path" {
-  default     = ""
-  description = "Private key path for jump host. Ignored if 'jump_host' is empty."
-}
-
-variable "jump_user" {
-  default     = ""
-  description = "User for jump host. Ignored if 'jump_host' is empty."
+  description = "Jump host specification map. Ignored if the `host` key is not specified or its value is empty."
 }
 
 variable "key_name" {
@@ -77,18 +68,18 @@ variable "key_name" {
 
 variable "outbound_rules" {
   default     = ["http", "https", "icmp"]
-  description = "Canned outbound security group rules. If 'all' is a value in the list, all ports will be open. Other values include 'http', 'https', 'ssh', and 'eph'."
+  description = "Canned outbound security group rules. Ignored if `generate_security_groups` is `false`. If `all` is a value in the list, all ports will be open. Other values include `icmp`, `http`, `https`, `ssh`, `eph`, `nat`, `mysql`, `pgsql`, and `oracle`."
   type        = "list"
 }
 
 variable "playbook_file" {
   default     = "site.yml"
-  description = "File name of the playbook (i.e. 'site.yml')."
+  description = "File name of the playbook (i.e. `site.yml`)."
 }
 
 variable "playbook_profile" {
   default     = "default"
-  description = "File name of the playbook (i.e. 'site.yml')."
+  description = "File name of the playbook (i.e. `site.yml`)."
 }
 
 variable "playbook_user" {
@@ -138,7 +129,7 @@ variable "volume_size" {
 
 variable "volume_type" {
   default     = "gp2"
-  description = "Type of volume to create for the root block device. Valid options are 'standard' and 'gp2'."
+  description = "Type of volume to create for the root block device. Valid options are `standard` and `gp2`."
 }
 
 variable "wait_hook" {

@@ -1,4 +1,5 @@
 /**
+ * # terraform-aws-ansible
  * A Terraform module that uses Ansible to configure EC2 instances in AWS.
  */
 
@@ -24,11 +25,7 @@ module "ec2" {
   global_ansible_extra_vars = "${var.global_ansible_extra_vars}"
   instance_type             = "${var.instance_type}"
   instance_var_name         = "${var.instance_var_name}"
-  jump_bypass_fingerprint   = "${var.jump_bypass_fingerprint}"
-  jump_host                 = "${var.jump_host}"
-  jump_key_path             = "${var.jump_key_path}"
-  jump_user                 = "${var.jump_user}"
-  key_name                  = "${var.key_name}"
+  jump                      = "${var.jump_spec}"
   playbook_file             = "${var.playbook_file}"
   playbook_profile          = "${var.playbook_profile}"
   playbook_user             = "${var.playbook_user}"

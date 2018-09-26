@@ -10,7 +10,7 @@ locals {
     "${var.instance_var_name == "" ? "" : "--extra-vars \"${local.ansible_extra_vars}\""}",
     "${var.private_key_path == "" ? "" : "--key-file ${var.private_key_path}"}",
     "${var.playbook_user == "" ? "" : "--user ${var.playbook_user}"}",
-    "${var.jump_host == "" ? "" : "--ssh-common-args='-o ProxyCommand=\"ssh -o StrictHostKeyChecking=${var.jump_bypass_fingerprint ? "no" : "yes"} -W %h:%p -q -i ${var.jump_key_path} ${var.jump_user}@${var.jump_host}\"'"}",
+    "${lookup(var.jump, "host", "") == "" ? "" : "--ssh-common-args='-o ProxyCommand=\"ssh -o StrictHostKeyChecking=${var.jump["bypass_fingerprint"] ? "no" : "yes"} -W %h:%p -q -i ${var.jump["key_path"]} ${var.jump["user"]}@${var.jump["host"]}\"'"}",
   ]
 
   ansible_parms   = "${join(" ", compact(local.ansible_parms_arr))}"

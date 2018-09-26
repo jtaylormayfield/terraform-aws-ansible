@@ -31,20 +31,8 @@ variable "instance_var_name" {
   description = "Name of the extra variable used to identify the playbook inventory."
 }
 
-variable "jump_bypass_fingerprint" {
-  description = "Bypass jump host fingerprint check. Ignored if 'jump_host' is empty."
-}
-
-variable "jump_host" {
-  description = "Host to use to jump the SSH connection over (i.e. for private subnets). Ignored if empty."
-}
-
-variable "jump_key_path" {
-  description = "Private key path for jump host. Ignored if 'jump_host' is empty."
-}
-
-variable "jump_user" {
-  description = "User for jump host. Ignored if 'jump_host' is empty."
+variable "jump" {
+  description = "Jump host specification."
 }
 
 variable "key_name" {
