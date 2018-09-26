@@ -1,3 +1,7 @@
+/**
+ * A Terraform module that uses Ansible to configure EC2 instances in AWS.
+ */
+
 provider "aws" {}
 
 locals {
